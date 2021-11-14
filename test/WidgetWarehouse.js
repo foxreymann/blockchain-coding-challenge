@@ -9,6 +9,7 @@ describe("Widget Master", function () {
     try {
       const WidgetWarehouse = await ethers.getContractFactory("WidgetWarehouse")
       instance = await WidgetWarehouse.deploy()
+      [manager1, manager2, manager3, customer1, customer2, customer3] = await ethers.getSigners()
     } catch (err) {
       console.error(err)
       throw err
@@ -25,6 +26,15 @@ describe("Widget Master", function () {
   })
 
   it("Customer can place an order", async function () {
+
     const tx = await instance.setStock(100)
+    await tx.wait()
+
+    const tx = await instance.order(100, {
+       value: await instance.price() * 100
+    })
+    await tx.wait()
+
+    // check orders
   })
 });
