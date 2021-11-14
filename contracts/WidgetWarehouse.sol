@@ -3,7 +3,7 @@ pragma solidity 0.8.10;
 
 import "hardhat/console.sol";
 
-contract WidgetsMaster {
+contract WidgetWarehouse {
   uint public stock;
 
   function setStock(uint _stock) public {
