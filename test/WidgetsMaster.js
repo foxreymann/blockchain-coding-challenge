@@ -19,4 +19,10 @@ describe("Widget Master", function () {
     await tx.wait()
     expect(await widgetsMaster.stock()).to.equal(100);
   })
+
+  it("Customer can NOT alter stock in inventory", async function () {
+    const tx = await widgetsMaster.setStock(100)
+    await tx.wait()
+    expect(await widgetsMaster.stock()).to.equal(100);
+  })
 });
