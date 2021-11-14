@@ -7,8 +7,9 @@ describe("Widget Master", function () {
 
   beforeEach(async () => {
     try {
-      const WidgetWarehouse = await ethers.getContractFactory("WidgetWarehouse")
+      const WidgetWarehouse = await ethers.getContractFactory("WidgetWarehouse");
       instance = await WidgetWarehouse.deploy()
+      await instance.deployed();
       [manager1, manager2, manager3, customer1, customer2, customer3] = await ethers.getSigners()
     } catch (err) {
       console.error(err)
@@ -30,7 +31,7 @@ describe("Widget Master", function () {
     const tx = await instance.setStock(100)
     await tx.wait()
 
-    const tx = await instance.order(100, {
+    tx = await instance.order(100, {
        value: await instance.price() * 100
     })
     await tx.wait()
