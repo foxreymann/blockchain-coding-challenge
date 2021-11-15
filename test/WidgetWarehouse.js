@@ -28,14 +28,17 @@ describe("Widget Master", function () {
 
   it("Customer can place an order", async function () {
 
-    const tx = await instance.setStock(100)
+    let tx = await instance.setStock(100)
     await tx.wait()
 
-    tx = await instance.order(100, {
-       value: await instance.price() * 100
+    tx = await instance.connect(customer1).order(1, {
+       value: await instance.price()
     })
     await tx.wait()
 
     // check orders
+    const order = await instance.orders(0)
+console.log({order})
+    expect(order.customer).to.equal(customer1.address)
   })
 });
