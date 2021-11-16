@@ -12,11 +12,11 @@ contract WidgetWarehouse {
     bool shipped;
   }
 
-  Order[] public orders;
-
   // STATE VARIABLES
   uint public stock;
   uint public price = 1 ether;
+
+  Order[] public orders;
 
   // MODIFIERS
 
