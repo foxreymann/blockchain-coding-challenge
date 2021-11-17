@@ -37,4 +37,12 @@ contract WidgetWarehouse {
     });
     orders.push(ordr);
   }
+
+  function ship(uint _orderId) public {
+    require(orders.length > _orderId, "order doesn't exist");
+    require(orders[_orderId].amount <= stock, "stock is too low to ship");
+    require(!orders[_orderId].shipped, "order alrady shipped");
+    stock -= orders[_orderId].amount;
+    orders[_orderId].shipped = true;
+  }
 }

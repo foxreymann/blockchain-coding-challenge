@@ -43,4 +43,29 @@ describe("Widget Master", function () {
     expect(order.amount).to.equal(orderSize)
     expect(order.shipped).to.equal(false)
   })
+
+  it("Warehouse manager can ship a customer order", async function () {
+    const orderSize = 100
+
+    let tx = await instance.setStock(orderSize)
+    await tx.wait()
+
+    tx = await instance.connect(customer1).order(orderSize, {
+       value: (await instance.price()).mul(ethers.BigNumber.from(orderSize))
+    })
+    await tx.wait()
+
+    // ship
+    tx = await instance.connect(manager1).ship(0)
+    await tx.wait()
+
+    const order = await instance.orders(0)
+    expect(order.customer).to.equal(customer1.address)
+    expect(order.amount).to.equal(orderSize)
+    expect(order.shipped).to.equal(true)
+
+    // check stock
+    expect(await instance.stock()).to.equal(0)
+
+  })
 });
