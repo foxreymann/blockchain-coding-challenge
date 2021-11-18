@@ -56,9 +56,9 @@ describe("Widget Master", function () {
   })
 
   it("Warehouse manager can ship a customer order", async function () {
-    const orderSize = 100
+    const orderSize = 42
 
-    let tx = await instance.connect(manager3).setStock(orderSize)
+    let tx = await instance.connect(manager3).setStock(orderSize + 1)
     await tx.wait()
 
     tx = await instance.connect(customer1).order(orderSize, {
@@ -76,7 +76,7 @@ describe("Widget Master", function () {
     expect(order.shipped).to.equal(true)
 
     // check stock
-    expect(await instance.stock()).to.equal(0)
+    expect(await instance.stock()).to.equal(1)
 
   })
 });
