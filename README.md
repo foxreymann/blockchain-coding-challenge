@@ -7,3 +7,5 @@ hh node
 // run unit tests on localhost
 hh test ---network localhost
 ```
+
+I'm happy to improve / extend on request.
