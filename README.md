@@ -1,6 +1,9 @@
-[Task](./docs/task.pdf)
+[task.pdf](./docs/task.pdf)
 
 ```shell
-hh node // start localhost blockchain
-hh test ---network localhost // run unit tests on localhost
+// start localhost blockchain
+hh node
+
+// run unit tests on localhost
+hh test ---network localhost
 ```
