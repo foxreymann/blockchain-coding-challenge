@@ -35,6 +35,9 @@ describe("Widget Master", function () {
   })
 
   it("Customer can NOT alter stock in inventory", async function () {
+    await expect(
+      instance.connect(customer2).setStock(2)
+    ).to.be.reverted
   })
 
   it("Customer can place an order", async function () {
