@@ -18,9 +18,9 @@ describe("Widget Master", function () {
       await instance.grantRole(managerRole, manager3.address);
 
       const customerRole = await instance.CUSTOMER_ROLE();
-      await instance.grantRole(cusotmerRole, customer1.address);
-      await instance.grantRole(cusotmerRole, customer2.address);
-      await instance.grantRole(cusotmerRole, customer3.address);
+      await instance.grantRole(customerRole, customer1.address);
+      await instance.grantRole(customerRole, customer2.address);
+      await instance.grantRole(customerRole, customer3.address);
 
     } catch (err) {
       console.error(err)
@@ -40,7 +40,7 @@ describe("Widget Master", function () {
   it("Customer can place an order", async function () {
     const orderSize = 100
 
-    let tx = await instance.setStock(orderSize)
+    let tx = await instance.connect(manager1).setStock(orderSize)
     await tx.wait()
 
     tx = await instance.connect(customer1).order(orderSize, {
@@ -58,7 +58,7 @@ describe("Widget Master", function () {
   it("Warehouse manager can ship a customer order", async function () {
     const orderSize = 100
 
-    let tx = await instance.setStock(orderSize)
+    let tx = await instance.connect(manager3).setStock(orderSize)
     await tx.wait()
 
     tx = await instance.connect(customer1).order(orderSize, {
